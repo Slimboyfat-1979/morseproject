@@ -1,9 +1,9 @@
 <template>
-    <div class="grid grid-cols-6 text-center gap-3 justify-items-center items-center">
-    <div
+    <div class="grid grid-cols-6 text-center gap-5 justify-items-center items-center">
+    <div @click="$emit('play')"
         v-for="(morse, letter) in morseMap"
         :key="letter"
-        class="flex flex-col items-center justify-center w-32 h-24 bg-gradient-to-br from-red-200 to-red-400 rounded-xl shadow-md hover:scale-105 transition-transform duration-200 cursor-pointer"
+        class="flex flex-col items-center justify-center w-20 h-20 bg-gradient-to-br from-red-200 to-red-400 rounded-xl shadow-md hover:scale-105 transition-transform duration-200 cursor-pointer "
     >
         <span class="text-2xl font-bold text-gray-800 uppercase mb-1">{{ letter }}</span>
         <span class="text-lg font-mono text-gray-700 tracking-widest">{{ morse }}</span>
@@ -12,6 +12,7 @@
 </template>
 
 <script setup>
+defineEmits(['play'])
 const morseMap = {
     a: '.-',
     b: '-...',
