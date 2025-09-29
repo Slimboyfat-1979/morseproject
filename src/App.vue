@@ -1,18 +1,30 @@
 <template>
-  <div class="w-2/3 m-auto mt-10">
+  <div class="w-2/3 m-auto mt-10 space-y-5">
     <h1 class="text-4xl text-center py-4">Morse Code Simulator</h1>
     <basecard>
-      <MorseButton @play="playSound"></MorseButton>
+      <MorseButton @play="handlePlay"></MorseButton>
     </basecard>
+    <Basecard>
+      <MorseInputField :morse="currentMorse"></MorseInputField>
+    </Basecard>
   </div>
 </template>
 
 <style scoped></style>
 
 <script setup>
-import { onMounted } from "vue";
-import Basecard from "./components/Basecard.vue";
-import MorseButton from "./components/MorseButton.vue";
+import { onMounted, ref } from "vue";
+import Basecard from "@/components/Basecard.vue";
+import MorseButton from "@/components/MorseButton.vue";
+import MorseInputField from "@/components/MorseInputField.vue";
+
+const currentMorse = ref('');
+
+function handlePlay(morse) {
+    playSound(morse);
+    currentMorse.value = morse;
+  
+}
 
 const ctx = new window.AudioContext();
 function playTone(duration = 0.1, frequency = 750) {
@@ -34,12 +46,11 @@ function playSound(morse) {
   const morseArray = morse.split("");
   console.log(morseArray);
   morseArray.forEach((m, i) => {
-    const duration = m === '-' ? 300 : 100;
+    const duration = m === "-" ? 300 : 100;
     setTimeout(() => {
-        playTone(duration / 1000)
-    }, i * 400)
-  })
-
+      playTone(duration / 1000);
+    }, i * 400);
+  });
 }
 
 onMounted(() => {});
