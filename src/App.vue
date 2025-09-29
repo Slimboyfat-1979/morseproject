@@ -17,7 +17,7 @@ import MorseButton from "./components/MorseButton.vue";
 const ctx = new window.AudioContext();
 function playTone(duration = 0.1, frequency = 750) {
   const oscillator = ctx.createOscillator();
-  oscillator.type = "triangle";
+  oscillator.type = "sine";
   oscillator.frequency.value = frequency;
 
   const gain = ctx.createGain();
@@ -25,16 +25,22 @@ function playTone(duration = 0.1, frequency = 750) {
   gain.connect(ctx.destination);
 
   oscillator.start();
-  gain.gain.setValueAtTime(1, ctx.currentTime);
+  gain.gain.setValueAtTime(0.3, ctx.currentTime + duration);
   gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
   oscillator.stop(ctx.currentTime + duration);
 }
 
-function playSound() {
-   playTone(0.5)
+function playSound(morse) {
+  const morseArray = morse.split("");
+  console.log(morseArray);
+  morseArray.forEach((m, i) => {
+    const duration = m === '-' ? 300 : 100;
+    setTimeout(() => {
+        playTone(duration / 1000)
+    }, i * 400)
+  })
+
 }
 
-onMounted(() => {
- 
-});
+onMounted(() => {});
 </script>
