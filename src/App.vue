@@ -7,6 +7,13 @@
     <Basecard>
       <MorseInputField :morse="currentMorse"></MorseInputField>
     </Basecard>
+    <button
+      class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer"
+      @click="handlePlay(currentMorse)"
+      :disabled="!currentMorse"
+    >
+      Play Morse
+    </button>
   </div>
 </template>
 
@@ -18,12 +25,11 @@ import Basecard from "@/components/Basecard.vue";
 import MorseButton from "@/components/MorseButton.vue";
 import MorseInputField from "@/components/MorseInputField.vue";
 
-const currentMorse = ref('');
+const currentMorse = ref("");
 
 function handlePlay(morse) {
-    playSound(morse);
-    currentMorse.value = morse;
-  
+  playSound(morse);
+  currentMorse.value = morse;
 }
 
 const ctx = new window.AudioContext();
