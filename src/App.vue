@@ -2,15 +2,14 @@
   <div class="w-2/3 m-auto mt-10 space-y-5">
     <h1 class="text-4xl text-center py-4">Morse Code Simulator</h1>
     <basecard>
-      <MorseButton @play="handlePlay"></MorseButton>
+      <MorseButton @play="handleMorse"></MorseButton>
     </basecard>
     <Basecard>
-      <MorseInputField :morse="currentMorse"></MorseInputField>
+      <MorseInputField :morse="morseArray"></MorseInputField>
     </Basecard>
     <button
       class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer"
-      @click="handlePlay(currentMorse)"
-      :disabled="!currentMorse"
+  
     >
       Play Morse
     </button>
@@ -25,12 +24,13 @@ import Basecard from "@/components/Basecard.vue";
 import MorseButton from "@/components/MorseButton.vue";
 import MorseInputField from "@/components/MorseInputField.vue";
 
-const currentMorse = ref("");
+const morseArray = ref([]);
 
-function handlePlay(morse) {
-  playSound(morse);
-  currentMorse.value = morse;
+function handleMorse(morse) {
+   morseArray.value.push(morse);
+   console.log(morseArray.value);
 }
+
 
 const ctx = new window.AudioContext();
 function playTone(duration = 0.1, frequency = 750) {
