@@ -7,10 +7,7 @@
     <Basecard>
       <MorseInputField :morse="morseArray"></MorseInputField>
     </Basecard>
-    <button
-      class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer"
-  
-    >
+    <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="playMorseCode(morseArray)">
       Play Morse
     </button>
   </div>
@@ -48,16 +45,33 @@ function playTone(duration = 0.1, frequency = 750) {
   oscillator.stop(ctx.currentTime + duration);
 }
 
-function playSound(morse) {
-  const morseArray = morse.split("");
-  console.log(morseArray);
-  morseArray.forEach((m, i) => {
-    const duration = m === "-" ? 300 : 100;
-    setTimeout(() => {
-      playTone(duration / 1000);
-    }, i * 400);
+function playMorseCode(morsecode) {
+  let delay = 0;
+
+  morsecode.forEach((letter) => {
+    const symbols = letter.split(''); // e.g. ".-" → [".", "-"]
+    symbols.forEach((symbol) => {
+      const duration = symbol === "-" ? 0.3 : 0.1; // seconds
+      setTimeout(() => {
+        playTone(duration);
+      }, delay * 1000);
+      delay += duration + 0.1; // short gap between symbols
+    });
+
+    delay += 0.3; // extra gap between letters
   });
 }
 
 onMounted(() => {});
 </script>
+
+<!-- // function playSound(morse) {
+//   const morseArray = morse.split("");
+//   console.log(morseArray);
+//   morseArray.forEach((m, i) => {
+//     const duration = m === "-" ? 300 : 100;
+//     setTimeout(() => {
+//       playTone(duration / 1000);
+//     }, i * 400);
+//   });
+// } -->

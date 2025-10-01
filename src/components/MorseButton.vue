@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-13 text-center gap-5 justify-items-center items-center md:grid-cols-6 sm:grid-cols-4 lg:grid-cols-13">
+    <div class="grid grid-cols-6 text-center gap-5 justify-items-center items-center md:grid-cols-6 sm:grid-cols-4 lg:grid-cols-6">
     <div @click="$emit('play', morse)"
         v-for="(morse, letter) in morseMap"
         :key="letter"
