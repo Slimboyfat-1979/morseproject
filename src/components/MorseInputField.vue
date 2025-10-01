@@ -6,12 +6,16 @@
     >
       {{ morseString}}
     </p>
+
   </section>
 </template>
 
 <script setup>
 import { computed } from 'vue';
 const props = defineProps({
+  clear: {
+    type: Boolean
+  },
   morse: {
     type: Array
   },

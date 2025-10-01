@@ -7,9 +7,14 @@
     <Basecard>
       <MorseInputField :morse="morseArray"></MorseInputField>
     </Basecard>
-    <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="playMorseCode(morseArray)">
-      Play Morse
-    </button>
+    <div class="space-x-5">
+        <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="playMorseCode(morseArray)">
+          Play Morse
+        </button>
+        <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="clearMoreseArray">
+          Clear Morse
+        </button>
+    </div>
   </div>
 </template>
 
@@ -22,10 +27,15 @@ import MorseButton from "@/components/MorseButton.vue";
 import MorseInputField from "@/components/MorseInputField.vue";
 
 const morseArray = ref([]);
+const clearArray = ref(false)
 
 function handleMorse(morse) {
    morseArray.value.push(morse);
    console.log(morseArray.value);
+}
+
+function clearMoreseArray(){
+    morseArray.value = []
 }
 
 
