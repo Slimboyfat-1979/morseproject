@@ -3,7 +3,7 @@
     <div @click="$emit('play', morse)"
         v-for="(morse, letter) in morseMap"
         :key="letter"
-        class="flex flex-col items-center justify-center w-20 h-20 bg-gradient-to-br from-red-200 to-red-400 rounded-xl shadow-md hover:scale-105 transition-transform duration-200 cursor-pointer "
+        class="rounded rounded-full flex flex-col items-center justify-center w-20 h-20 bg-gradient-to-br from-red-200 to-red-400 shadow-md hover:scale-105 transition-transform duration-200 cursor-pointer "
     >
         <span class="text-2xl font-bold text-gray-800 uppercase mb-1">{{ letter }}</span>
         <span class="text-lg font-mono text-gray-700 tracking-widest">{{ morse }}</span>
