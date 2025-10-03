@@ -14,6 +14,9 @@
         <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="clearMoreseArray">
           Clear Morse
         </button>
+        <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer">
+          Send Morse
+        </button>
     </div>
   </div>
 </template>
