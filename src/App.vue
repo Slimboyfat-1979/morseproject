@@ -31,6 +31,7 @@ import { onMounted, ref } from "vue";
 import Basecard from "@/components/Basecard.vue";
 import MorseButton from "@/components/MorseButton.vue";
 import MorseInputField from "@/components/MorseInputField.vue";
+import socket from '@/main.js'
 
 const morseArray = ref([]);
 
@@ -45,7 +46,7 @@ function clearMoreseArray(){
 }
 
 function sendMorse() {
-    console.log("Send Morse has been clicked")
+   socket.emit('custom-event', {morse: morseArray.value})
     
 }
 
