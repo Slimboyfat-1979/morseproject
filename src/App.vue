@@ -5,22 +5,43 @@
       <MorseButton @play="handleMorse"></MorseButton>
     </basecard>
     <Basecard>
-      <MorseInputField :morse="morseArray">Generated Morse Code</MorseInputField>
+      <MorseInputField :morse="morseArray"
+        >Generated Morse Code</MorseInputField
+      >
     </Basecard>
     <div class="space-x-5">
-        <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="playMorseCode(morseArray)">
-          Play Morse
-        </button>
-        <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="clearMoreseArray">
-          Clear Morse
-        </button>
-        <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="sendMorse">
-          Send Morse 
-        </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer"
+        @click="playMorseCode(morseArray)"
+      >
+        Play Morse
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer"
+        @click="clearMoreseArray"
+      >
+        Clear Morse
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer"
+        @click="sendMorse"
+      >
+        Send Morse
+      </button>
     </div>
     <Basecard>
-        <MorseInputField>Recieved Morse Code</MorseInputField>
+      <MorseInputField :morse="recievedMorse"
+        >Recieved Morse Code</MorseInputField
+      >
     </Basecard>
+    <div class="space-x-5">
+      <button
+        class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer"
+        @click="playMorseCode(morseArray)"
+      >
+        Play Morse
+      </button>
+    </div>
   </div>
 </template>
 
@@ -31,25 +52,23 @@ import { onMounted, ref } from "vue";
 import Basecard from "@/components/Basecard.vue";
 import MorseButton from "@/components/MorseButton.vue";
 import MorseInputField from "@/components/MorseInputField.vue";
-import socket from '@/main.js'
+import socket from "@/main.js";
 
 const morseArray = ref([]);
-
+const recievedMorse = ref([]);
 
 function handleMorse(morse) {
-   morseArray.value.push(morse);
-   console.log(morseArray.value);
+  morseArray.value.push(morse);
+  console.log(morseArray.value);
 }
 
-function clearMoreseArray(){
-    morseArray.value = []
+function clearMoreseArray() {
+  morseArray.value = [];
 }
 
 function sendMorse() {
-   socket.emit('custom-event', {morse: morseArray.value})
-    
+  socket.emit("send-morse", { morse: morseArray.value });
 }
-
 
 const ctx = new window.AudioContext();
 function playTone(duration = 0.1, frequency = 750) {
@@ -71,7 +90,7 @@ function playMorseCode(morsecode) {
   let delay = 0;
 
   morsecode.forEach((letter) => {
-    const symbols = letter.split(''); // e.g. ".-" → [".", "-"]
+    const symbols = letter.split(""); // e.g. ".-" → [".", "-"]
     symbols.forEach((symbol) => {
       const duration = symbol === "-" ? 0.3 : 0.1; // seconds
       setTimeout(() => {
@@ -84,7 +103,9 @@ function playMorseCode(morsecode) {
   });
 }
 
-onMounted(() => {});
+onMounted(() => {
+  socket.on("morse-reply", (data) => {
+    recievedMorse.value = data.morse;
+  });
+});
 </script>
-
-

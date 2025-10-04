@@ -7,11 +7,14 @@
       {{ morseString}}
     </p>
 
+
   </section>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import socket from '@/main';
+import { computed, onMounted, ref } from 'vue';
+const receivedMorse = ref([]);
 const props = defineProps({
   clear: {
     type: Boolean
@@ -21,5 +24,11 @@ const props = defineProps({
   },
 });
 
-const morseString = computed(() => props.morse?.join(' ')  ?? '')
+const morseString = computed(() => props.morse?.join(' ')  ?? '');
+
+onMounted(() => {
+    socket.on('morse-reply', (data) => {
+        receivedMorse.value = data.morse;
+    })
+})
 </script>
