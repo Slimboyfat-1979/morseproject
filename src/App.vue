@@ -5,7 +5,7 @@
       <MorseButton @play="handleMorse"></MorseButton>
     </basecard>
     <Basecard>
-      <MorseInputField :morse="morseArray"></MorseInputField>
+      <MorseInputField :morse="morseArray">Generated Morse Code</MorseInputField>
     </Basecard>
     <div class="space-x-5">
         <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="playMorseCode(morseArray)">
@@ -14,10 +14,13 @@
         <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="clearMoreseArray">
           Clear Morse
         </button>
-        <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer">
-          Send Morse
+        <button class="bg-blue-500 hover:bg-blue-600 transition-colors text-white px-4 py-2 rounded shadow cursor-pointer" @click="sendMorse">
+          Send Morse 
         </button>
     </div>
+    <Basecard>
+        <MorseInputField>Recieved Morse Code</MorseInputField>
+    </Basecard>
   </div>
 </template>
 
@@ -30,7 +33,7 @@ import MorseButton from "@/components/MorseButton.vue";
 import MorseInputField from "@/components/MorseInputField.vue";
 
 const morseArray = ref([]);
-const clearArray = ref(false)
+
 
 function handleMorse(morse) {
    morseArray.value.push(morse);
@@ -39,6 +42,11 @@ function handleMorse(morse) {
 
 function clearMoreseArray(){
     morseArray.value = []
+}
+
+function sendMorse() {
+    console.log("Send Morse has been clicked")
+    
 }
 
 
@@ -78,13 +86,4 @@ function playMorseCode(morsecode) {
 onMounted(() => {});
 </script>
 
-<!-- // function playSound(morse) {
-//   const morseArray = morse.split("");
-//   console.log(morseArray);
-//   morseArray.forEach((m, i) => {
-//     const duration = m === "-" ? 300 : 100;
-//     setTimeout(() => {
-//       playTone(duration / 1000);
-//     }, i * 400);
-//   });
-// } -->
+

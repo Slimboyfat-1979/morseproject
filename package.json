@@ -13,6 +13,9 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
+    "nodemon": "^3.1.10",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "tailwindcss": "^4.1.13",
     "vue": "^3.5.18"
   },
