@@ -10,13 +10,7 @@ io.on('connection', (socket) => {
     console.log(`Client connected ${socket.id}`);
     socket.on('send-morse', (data) => {
         console.log('Received Morse: ', data.morse);
-
-        io.emit('morse-reply', {morse: data.morse})
+        // io.emit('morse-reply', {morse: data.morse})
+        socket.broadcast.emit('morse-reply', {morse: data.morse})
     })
-    // console.log(`You connected with ${socket.id}`);
-    // socket.on('send-morse', data => {
-    //     console.log(data.morse);
-    //     socket.emit('morse-reply', {morse: data.morse})
-    // })
-    
 })
